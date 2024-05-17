@@ -4,11 +4,11 @@ import {
   revenue,
   users,
 } from '@/app/lib/placeholder-data';
-import { sql, db } from '@vercel/postgres';
+import { sql, db, VercelPoolClient } from '@vercel/postgres';
 import bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
 
-async function seedUsers(client) {
+async function seedUsers(client: VercelPoolClient) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     // Create the "users" table if it doesn't exist
@@ -47,7 +47,7 @@ async function seedUsers(client) {
   }
 }
 
-async function seedInvoices(client) {
+async function seedInvoices(client: VercelPoolClient) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
@@ -87,7 +87,7 @@ async function seedInvoices(client) {
   }
 }
 
-async function seedCustomers(client) {
+async function seedCustomers(client: VercelPoolClient) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
@@ -126,7 +126,7 @@ async function seedCustomers(client) {
   }
 }
 
-async function seedRevenue(client) {
+async function seedRevenue(client: VercelPoolClient) {
   try {
     // Create the "revenue" table if it doesn't exist
     const createTable = await client.sql`
